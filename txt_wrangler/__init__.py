@@ -1,14 +1,15 @@
 # Library
 import os.path
 import module_mgr as mm
+import txt_wrangler as tw
 
 # Constants
-DIR_MODULES = r'.\modules'
+dir_modules = r'.\modules'
 
 
 def load_modules():
     # Registramos una lista con carpetas en las que se van a buscar modulos.
-    mm.register_paths([DIR_MODULES])
+    mm.register_paths([dir_modules])
 
     # Guardamos las carpetas registradas en una lista.
     registered_paths = mm.registered_paths()
@@ -30,11 +31,14 @@ def load_modules():
     return modules_loaded
 
 
-def read_file(results, filename, start_block, end_block, modules):
+def read_file(results, filename):
 
     # Check file existence
     assert os.path.isfile(filename), ("The file specified does not exist: "
                                       "'%s'" % filename)
+
+    # Recuperamos la lista de modulos cargados con load_modules
+    modules = tw.load_modules()
 
     # Abrimos el fichero
     with open(filename, 'r') as f:
@@ -55,6 +59,6 @@ def read_file(results, filename, start_block, end_block, modules):
                 # para que eso nodetenga el programa. Es decir, seguira
                 # ejecutando otros modulos encontrados tras mostrar el error
                 try:
-                    module.main(all_lines, line_num, current, start_block, end_block, results, modules)
+                    module.main(all_lines, line_num, current, results)
                 except Exception, e:    
                     print "An exception has ocurred:", e
