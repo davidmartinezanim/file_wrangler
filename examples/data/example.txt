@@ -4,7 +4,7 @@ block_start
     author = 'DavidMartinez'
 block_end
 
-load_file "D:\Python\examples\data\2File.txt"
+load_file ".\data\2File.txt"
 
 block_start
     name = '1SecondBlock'

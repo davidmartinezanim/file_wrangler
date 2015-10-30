@@ -14,28 +14,24 @@
 # modulo escribes tw seguido de un punto y el nombre de la funcion
 import txt_wrangler as tw
 from cue.obj.hitem import HItem
-
-
 # Constants
-FILE_WORK = r".\data\example.txt"
-START_BLOCK = 'block_start'
-END_BLOCK = 'block_end'
-FILTER = "_hchy: "
-
+file_work = r".\data\example.txt"
 # lista que va a almacenar los resultados
 results = list()
 
-# Recuperamos la lista de modulos cargados con load_modules
-modules = tw.load_modules()
-# Lectura i interpretacio dels fitxers de dades
-tw.read_file(results, FILE_WORK, START_BLOCK, END_BLOCK, modules)
 
-root = HItem(name=FILE_WORK.rpartition('\\')[2])
+
+# Lectura i interpretacio dels fitxers de dades
+tw.read_file(results, file_work)
+
+# Extrae la informacion deseada de 'results'
+root = HItem(name=file_work.rpartition('\\')[2])
 for line in results:
-	if FILTER in line:
-		section = line.rpartition('\'')[0].rpartition('\'')[2]
+	if line['type'] == 'block':
+		section = line['name']
 		HItem(name=section, parent=root)
 
+# Presenta los resultados del test
 print "===  Hierarchy  ".ljust(80, "=")
-print root
+print root,
 print '='*80

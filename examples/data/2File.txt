@@ -12,7 +12,7 @@ block_end
 
 
 
-load_file "D:\Python\examples\data\3File.txt"
+load_file ".\data\3File.txt"
 
 block_start
     name = '2ThirdBlock'
